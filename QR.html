@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"> 
+    </script>
+    <title>QRCode</title>
+</head>
+<body>
+    <div class="backgroundImg">
+        <img src="img/bg-illustration.svg" alt="">
+    </div>
+    <div class="logoTop">
+        <img src="img/logo-qr-generator.svg" alt="">
+    </div>
+    <main class="containerMain">
+        <div class="circle">
+            <div class="QRContainer">
+                <div class="QR">
+                </div>
+            </div>
+        </div>
+        <div class="container-btns">
+            <button id="btnDownload"> Download <img src="img/mi--download.png" alt=""> </button>
+            <button id="btnShare"> Share <img src="img/mi--link.png" alt=""> </button>
+        </div>
+    </main>
+    <script >
+        const link = new URLSearchParams(window.location.search).get('link');
+        if(!link){
+            alert('Algo Fallo')
+        }
+        let qrcode = new QRCode(document.querySelector('.QR'), link)
+        let btdw = document.querySelector('#btnDownload')
+        let btsh = document.querySelector('#btnShare')
+        btdw.addEventListener('click', function(){
+            var a = document.createElement('a');
+            a.href = document.querySelector('.QR').lastChild.src;
+            a.download = 'qr_code.png';
+            a.click();
+        })
+        btsh.addEventListener('click',function(){
+            navigator.clipboard.writeText(document.querySelector('.QR').lastChild.src).then(function() {
+                alert('El enlace del QR ha sido copiado al portapapeles.');
+            }).catch(function(err) {
+                console.error('Error al copiar:', err);
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Create QR</title>
+</head>
+<body>
+    <div class="backgroundImg">
+        <img src="img/bg-illustration.svg" alt="">
+    </div>
+    <main class="containerMain">
+        <div class="container-img">
+            <img src="img/logo-qr-generator.svg" alt="">
+        </div>
+        <form class="container-form">
+            <input placeholder="Enter an url" type="text" id="inputURL" spellcheck="false" required>
+            <button id="btnQR">QR code</button>
+        </form>
+    </main>
+</body>
+    <script>
+        const form = document.querySelector('.container-form')
+        let link 
+        form.addEventListener('submit',function(event){
+            event.preventDefault()
+            link = document.querySelector('#inputURL').value
+            window.location.href = 'QR.html?link=' + encodeURIComponent(link);
+})
+    </script>
+</html>
